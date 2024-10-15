@@ -26,7 +26,7 @@ tenant=$(jetpack config ood.entra_tenant_id)  # Tenant ID for Entra
 
 # OOD connection app settings. GIT URL to the OOD connection application to install in OOD.
 # Point these variables to your GIT repo that has the OOD connection app
-git_url="https://RedOakConsulting@dev.azure.com/RedOakConsulting/Public%20-%20CA005PR009%20-%20OpenOnDemand%20Cyclecloud/_git/OpenOnDemand_CycleCloud_connection_app"
+git_url="https://github.com/xpillons/oodconnect4cc.git"
 git_branch="main"
 
 # Do not edit below
