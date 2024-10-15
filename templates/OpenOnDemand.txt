@@ -23,19 +23,19 @@ Autoscale = false
         cluster.identities.default = $ManagedIdentity
 
         # Open OnDemand Authentication options
+        ood.server_name = $ood_server_name
         ood.auth_method = $ood_auth_method
         ## LDAP config - add values here if using LDAP
         ood.ldap_host= $ood_ldap_host  # LDAP server host and port
-        ood.ldap_bind_dn=$ood_ldap_bind_dn  # Bind DN for LDAP
-        ood.ldap_bind_pwd=ood_ldap_bind_pwd  # Password for the bind DN
-        ood.ldap_user_base_dn=ood_ldap_user_base_dn  # Base DN for user entries
-        ood.ldap_group_base_dn=ood_ldap_group_base_dn  # Base DN for group entries
+        ood.ldap_bind_dn= $ood_ldap_bind_dn  # Bind DN for LDAP
+        ood.ldap_bind_pwd= $ood_ldap_bind_pwd  # Password for the bind DN
+        ood.ldap_user_base_dn= $ood_ldap_user_base_dn  # Base DN for user entries
+        ood.ldap_group_base_dn= $ood_ldap_group_base_dn  # Base DN for group entries
 
         # Entra config - add values here if using Entra
-        ood.entra_client_id=ood_entra_client_id  # Client ID for Entra
-        ood.entra_client_secret=ood_entra_client_secret  # Client Secret for Entra
-        ood.entra_tenant_id=ood_entra_tenant_id  # Tenant ID for Entra
-
+        ood.entra_client_id= $ood_entra_client_id  # Client ID for Entra
+        ood.entra_client_secret= $ood_entra_client_secret  # Client Secret for Entra
+        ood.entra_tenant_id= $ood_entra_tenant_id  # Tenant ID for Entra
 
 
     [[node OOD]]
@@ -65,7 +65,7 @@ Order = 1
         [[[parameter Filer]]]
         HideLabel = true
         Config.Plugin = pico.widget.HtmlTemplateWidget
-        Config.Template = '''<table role="presentation"><tr><td><img alt="OOD logo" src="https://global.discourse-cdn.com/flex015/uploads/osc/original/2X/7/78efe89a41a9cc51322e7b38c4d1efc24a44e6ee.png" width="164" height="43"></td></tr><tr><td><p>Creates an <a href="https://openondemand.org/" target="_blank">Open OnDemand</a> portal that can be connected to CycleCloud Clusters</p><p>Follow the instructions in the <a href="https://github.com/xpillons/ood4cc/" target="_blank">README</a>for details on instructions on extending and configuring the Project for your environment.</p></td></tr></table>'''
+        Config.Template = '''<table role="presentation"><tr><td><img alt="OOD logo" src="https://global.discourse-cdn.com/flex015/uploads/osc/original/2X/7/78efe89a41a9cc51322e7b38c4d1efc24a44e6ee.png" width="164" height="43"></td></tr><tr><td><p>Creates an <a href="https://openondemand.org/" target="_blank">Open OnDemand</a> portal that can be connected to CycleCloud Clusters</p><p>Follow the instructions in the <a href="https://github.com/xpillons/ood4cc/" target="_blank">README</a> for details on instructions on extending and configuring the Project for your environment.</p></td></tr></table>'''
 
         [[[parameter Readme]]]
         HideLabel = true
@@ -105,6 +105,11 @@ Order = 20
 
     [[parameters Open OnDemand Authentication Settings]]
     Order = 5
+
+        [[[parameter ood_server_name]]]
+        Label = FQDN 
+        Description = The FQDN for the Self Signed SSL Certificate
+        Config.ParameterType = String
 
         [[[parameter ood_auth_method]]]
         Required = True

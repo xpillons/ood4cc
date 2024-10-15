@@ -33,7 +33,8 @@ git_branch="main"
 ### Node config values from OHAI and IP
 platform=$(jetpack config platform)  # Get the platform information
 # FQDN could be used here but by default uses the IP
-IP=$(curl -H Metadata:true --noproxy "*" "http://169.254.169.254/metadata/instance/network/interface/0/ipv4/ipAddress/0/privateIpAddress?api-version=2017-08-01&format=text")
+#IP=$(curl -H Metadata:true --noproxy "*" "http://169.254.169.254/metadata/instance/network/interface/0/ipv4/ipAddress/0/privateIpAddress?api-version=2017-08-01&format=text")
+server_name=$(jetpack config ood.server_name `hostname -f`)
 
 # Replace values in the vars.yml
 sed -i "s/AUTH/$auth_method/g" "$CYCLECLOUD_SPEC_PATH"/files/vars.yml
@@ -47,7 +48,7 @@ sed -i "s/CLIENT_SECRET/$ClientSecret/g" "$CYCLECLOUD_SPEC_PATH"/files/vars.yml
 sed -i "s/TENANT_ID/$tenant/g" "$CYCLECLOUD_SPEC_PATH"/files/vars.yml
 sed -i "s,GITURL,$git_url,g" "$CYCLECLOUD_SPEC_PATH"/files/vars.yml
 sed -i "s/GITBRANCH/$git_branch/g" "$CYCLECLOUD_SPEC_PATH"/files/vars.yml
-sed -i "s/Server_IP/$IP/g" "$CYCLECLOUD_SPEC_PATH"/files/vars.yml
+sed -i "s/Server_IP/$server_name/g" "$CYCLECLOUD_SPEC_PATH"/files/vars.yml
 sed -i "s/PLATFORM/$platform/g" "$CYCLECLOUD_SPEC_PATH"/files/vars.yml
 
 # Supported platforms AlmaLinux 8, Ubuntu 22
