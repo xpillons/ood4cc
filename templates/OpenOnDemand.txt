@@ -17,6 +17,7 @@ Category = Applications
     Azure.Identities = $ManagedIdentity
 
         [[[configuration]]]
+        ood.auth_method = $ood_auth_method
         # May be used to identify the ID in cluster-init scripts
         cluster.identities.default = $ManagedIdentity
 
@@ -48,7 +49,7 @@ Order = 1
         [[[parameter Filer]]]
         HideLabel = true
         Config.Plugin = pico.widget.HtmlTemplateWidget
-        Config.Template := "<table role=\"presentation\"><tr><td><img alt=\"OOD logo\" src='https://global.discourse-cdn.com/flex015/uploads/osc/original/2X/7/78efe89a41a9cc51322e7b38c4d1efc24a44e6ee.png' width='164' height='43'></td></tr><tr><td><p>Creates a Open OnDemand portal that can be connected to CycleCloud Clusters</p></td></tr></table>"
+        Config.Template := "<table role=\"presentation\"><tr><td><img alt=\"OOD logo\" src='https://global.discourse-cdn.com/flex015/uploads/osc/original/2X/7/78efe89a41a9cc51322e7b38c4d1efc24a44e6ee.png' width='164' height='43'></td></tr><tr><td><p>Creates an <a href="https://openondemand.org/" target="_blank">Open OnDemand</a> portal that can be connected to CycleCloud Clusters</p><p>Follow the instructions in the <a href="https://github.com/xpillons/ood4cc/" target="_blank">README</a>for details on instructions on extending and configuring the Project for your environment.</p></td></tr></table>"
 
         [[[parameter Readme]]]
         HideLabel = true
@@ -86,6 +87,20 @@ Order = 10
 [parameters Advanced Settings]
 Order = 20
 
+    [[parameters Open OnDemand Settings]]
+    Order = 5
+
+        [[[parameter ood_auth_method]]]
+        Required = True
+        Label = Authentication Method
+        Description = Authentication Method
+        ParameterType = StringList
+        Config.Plugin = pico.form.Dropdown
+        Config.FreeForm = true
+        Config.Entries := {[Value="Basic"], [Value="LDAP"], [Value="Entra"]}
+        DefaultValue = "Basic"
+
+
     [[parameters Azure Settings]]
     Order = 10 
 
@@ -122,7 +137,7 @@ Order = 20
         Config.Plugin = pico.form.Dropdown
         Config.FreeForm = true
         DefaultValue = "canonical:0001-com-ubuntu-server-jammy:22_04-lts-gen2:latest"
-        Config.Entries := {[Value="almalinux:almalinux-x86_64:8-gen2:latest"; Label="AlmaLinux 8"], [Value="canonical:0001-com-ubuntu-server-jammy:22_04-lts-gen2:latest"; Label="Ubuntu 22.04 LTS"]}
+        Config.Entries := {[Label="AlmaLinux 8"; Value="almalinux:almalinux-x86_64:8-gen2:latest"], [Label="Ubuntu 22.04 LTS"; Value="canonical:0001-com-ubuntu-server-jammy:22_04-lts-gen2:latest"]}
 
         [[[parameter ClusterInitSpecs]]]
         Label = Cluster-Init Projects
@@ -135,7 +150,7 @@ Order = 20
 
         [[[parameter ReturnProxy]]]
         Label = Return Proxy
-        DefaultValue = true
+        DefaultValue = false
         ParameterType = Boolean
         Config.Label = Use SSH tunnel to connect to CycleCloud (required if direct access is blocked)
 

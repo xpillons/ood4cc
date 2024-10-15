@@ -8,7 +8,7 @@
 #set -x  # Uncomment to enable debugging
 
 ### User config values start ######
-auth_method="Basic"  # [Basic, LDAP, Entra] Select Authentication method. Basic auth will use local accounts that have a password set.
+auth_method=$(jetpack config ood.auth_method Basic) # [Basic, LDAP, Entra] Select Authentication method. Basic auth will use local accounts that have a password set.
 
 ## LDAP config - add values here if using LDAP
 LDAP_host=""  # LDAP server host and port
