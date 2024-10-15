@@ -11,16 +11,16 @@
 auth_method=$(jetpack config ood.auth_method Basic) # [Basic, LDAP, Entra] Select Authentication method. Basic auth will use local accounts that have a password set.
 
 ## LDAP config - add values here if using LDAP
-LDAP_host=""  # LDAP server host and port
-bindDN=""  # Bind DN for LDAP
-bindPW=""  # Password for the bind DN
-user_baseDN=""  # Base DN for user entries
-group_baseDN=""  # Base DN for group entries
+LDAP_host=$(jetpack config ood.ldap_host)  # LDAP server host and port
+bindDN=$(jetpack config ood.ldap_bind_dn)  # Bind DN for LDAP
+bindPW=$(jetpack config ood.ldap_bind_pwd)  # Password for the bind DN
+user_baseDN=$(jetpack config ood.ldap_user_base_dn)  # Base DN for user entries
+group_baseDN=$(jetpack config ood.ldap_group_base_dn)  # Base DN for group entries
 
 # Entra config - add values here if using Entra
-ClientID=""  # Client ID for Entra
-ClientSecret=""  # Client Secret for Entra
-tenant=""  # Tenant ID for Entra
+ClientID=$(jetpack config ood.entra_client_id)  # Client ID for Entra
+ClientSecret=$(jetpack config ood.entra_client_secret)  # Client Secret for Entra
+tenant=$(jetpack config ood.entra_tenant_id)  # Tenant ID for Entra
 
 ### User config values end #########
 
