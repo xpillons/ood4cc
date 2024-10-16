@@ -198,14 +198,14 @@
         enabled: true
       when: OS_VERSION == "ubuntu"
 
-    # Restart the Dex service
+    # Restart the Dex service only when using LDAP or Entra
     - name: Start dex
       become: true
       ansible.builtin.service:
         name: ondemand-dex.service
         state: restarted
         enabled: true
-
+      when: auth_method != "Basic"
 
 # SELINUX is configured however it is disabled in the OOD VM as the connection app has to be able to execute commands locally from the apache webserver.
 # SELINUX blocks this by default. Once a cluster is added this can be turned back on

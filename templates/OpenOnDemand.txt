@@ -19,6 +19,10 @@ Autoscale = false
     Azure.Identities = $ManagedIdentity
 
         [[[configuration]]]
+        # Disable ip-XXXXXXXX hostname generation
+        cyclecloud.hosts.standalone_dns.enabled = false
+        cyclecloud.hosts.simple_vpc_dns.enabled = false
+
         # May be used to identify the ID in cluster-init scripts
         cluster.identities.default = $ManagedIdentity
 
