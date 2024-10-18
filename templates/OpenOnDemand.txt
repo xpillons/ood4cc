@@ -41,6 +41,12 @@ Autoscale = false
         ood.entra_client_secret= $ood_entra_client_secret  # Client Secret for Entra
         ood.entra_tenant_id= $ood_entra_tenant_id  # Tenant ID for Entra
 
+        [[[configuration cyclecloud.mounts.nfs_shared]]]
+        type = nfs
+        mountpoint = /shared
+        export_path = $NFSSharedExportPath
+        address = $NFSAddress
+        options = $NFSSharedMountOptions
 
     [[node OOD]]
 
@@ -204,7 +210,7 @@ Order = 20
     [[parameters Software]]
     Description = "Specify the base OS installed - Alma Linux 8 = almalinux:almalinux-x86_64:8-gen2:latest Ubnutu22.04lts = canonical:0001-com-ubuntu-server-jammy:22_04-lts-gen2:latest "
 
-    Order = 10
+    Order = 20
         
         [[[parameter ImageName]]]
         Label = Image
@@ -235,3 +241,27 @@ Order = 20
         DefaultValue = false
         ParameterType = Boolean
         Config.Label = Access master node from the Internet
+
+    [[parameters Default NFS Share]]
+    Order = 30
+    Label = File-system Mount for /shared
+
+        [[[parameter About shared]]]
+        HideLabel = true
+        Config.Plugin = pico.widget.HtmlTemplateWidget
+        Config.Template = ''' <p>Users' home directories reside within the <code>/shared</code> mountpoint with the base homedir <code>/shared/home</code>.</p>'''
+        Order = 6
+
+        [[[parameter NFSAddress]]]
+        Label = IP Address
+        Description = The IP address or hostname of the NFS server. Also accepts a list comma-separated addresses.
+        Config.ParameterType = String
+
+        [[[parameter NFSSharedExportPath]]]
+        Label = Export Path
+        Description = The path exported by the file system
+        DefaultValue = /shared
+
+        [[[parameter NFSSharedMountOptions]]]
+        Label = Mount Options
+        Description = NFS Client Mount Options        
