@@ -5,6 +5,7 @@
 [cluster OpenOnDemand]
 FormLayout = selectionpanel
 Category = Applications
+IconUrl = "https://global.discourse-cdn.com/flex015/uploads/osc/original/2X/7/78efe89a41a9cc51322e7b38c4d1efc24a44e6ee.png"
 
 Autoscale = false
 
