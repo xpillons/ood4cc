@@ -63,7 +63,7 @@ Autoscale = false
         [[[configuration cyclecloud.mounts.nfs_home]]]
         type = nfs
         mountpoint = /home
-        export_path = ${strcat(NFSSharedExportPath, "/home"}
+        export_path = ${strcat(NFSSharedExportPath, "/home")}
         address = $NFSAddress
         options = $NFSSharedMountOptions
 
