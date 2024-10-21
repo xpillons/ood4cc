@@ -75,4 +75,5 @@ fi
 
 ansible-galaxy collection install community.crypto  # Install Ansible Galaxy collection
 
+export ANSIBLE_VERBOSITY=2
 ansible-playbook "$CYCLECLOUD_SPEC_PATH"/files/OOD_config.yml  # Run Ansible playbook to configure OOD
