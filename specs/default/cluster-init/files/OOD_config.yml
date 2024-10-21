@@ -89,25 +89,6 @@
             - SSLCertificateFile /etc/ssl/OOD/{{ SERVER_NAME }}.cert
             - SSLCertificateKeyFile /etc/ssl/OOD/{{ SERVER_NAME }}.key
 
-          ood_apps:
-            dashboard:
-              env:
-                ood_bc_dynamic_js: true
-
-          pinned_apps:
-            - category: 'Interactive Apps'
-            - sys/shell
-
-          host_regex: '[^./]+'
-          node_uri: '/node'
-          rnode_uri: '/rnode'
-
-          pun_custom_env:
-            OOD_DASHBOARD_TITLE: "Open OnDemand for Azure Cycle Cloud"
-            OOD_BRAND_BG_COLOR: "#0078d4"
-            OOD_BRAND_LINK_ACTIVE_BG_COLOR: "#212529"
-            OOD_JOB_NAME_ILLEGAL_CHARS: "/"
-
     # Configure basic authentication for OOD
     - name: Setup ood_portal ubuntu basic auth file.
       ansible.builtin.blockinfile:
