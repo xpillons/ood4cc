@@ -1,20 +1,20 @@
 # This Ansible playbook sets up SSL for Open OnDemand (OOD) and configures authentication and services.
 
 - name: Setup SSL for OOD
-  hosts: 127.0.0.1
+  hosts: localhost
   connection: local
   vars_files: vars.yml
+  become: true
+
   tasks:
 
     # Generate a self-signed private key
     - name: Generate self signed certs
-      become: true
       community.crypto.openssl_privatekey:
         path: /tmp/{{ SERVER_NAME }}.key
 
     # Generate a Certificate Signing Request (CSR) using the private key
     - name: Generate CSR
-      become: true
       community.crypto.openssl_csr_pipe:
         privatekey_path: /tmp/{{ SERVER_NAME }}.key
         common_name: "{{ SERVER_NAME }}"
@@ -22,7 +22,6 @@
 
     # Create a self-signed certificate using the CSR
     - name: Create self-signed certificate
-      become: true
       community.crypto.x509_certificate:
         path: /tmp/{{ SERVER_NAME }}.cert
         privatekey_path: /tmp/{{ SERVER_NAME }}.key
@@ -31,7 +30,6 @@
 
     # Copy the generated certificates to the appropriate directory
     - name: Copy certs
-      become: true
       ansible.builtin.copy:
         src: "{{ item.src }}"
         dest: /etc/ssl/OOD/
@@ -42,14 +40,16 @@
         - src: /tmp/{{ SERVER_NAME }}.cert
 
 - name: Setup OOD auth and service
-  hosts: 127.0.0.1
+  hosts: localhost
   connection: local
   vars_files: vars.yml
+  become: true
+
+
   tasks:
 
     # Create a new ood_portal.conf file
     - name: New ood_portal.conf file
-      become: true
       ansible.builtin.shell: "> /etc/ood/config/ood_portal.yml"
 
     - name: Common ood_portal configuration
@@ -83,7 +83,6 @@
 
     # Configure basic authentication for OOD
     - name: Setup ood_portal ubuntu basic auth file.
-      become: true
       ansible.builtin.blockinfile:
         path: /etc/ood/config/ood_portal.yml
         marker: "#<!-- {mark} ANSIBLE MANAGED BLOCK -->"
@@ -100,7 +99,6 @@
       when: auth_method == "Basic" and OS_VERSION == "ubuntu"
     
     - name: Setup ood_portal Alma basic auth file.
-      become: true
       ansible.builtin.blockinfile:
         path: /etc/ood/config/ood_portal.yml
         marker: "#<!-- {mark} ANSIBLE MANAGED BLOCK -->"
@@ -118,7 +116,6 @@
 
     # Configure LDAP authentication for OOD
     - name: Setup ood_portal ldap auth file.
-      become: true
       ansible.builtin.blockinfile:
         path: /etc/ood/config/ood_portal.yml
         marker: "#<!-- {mark} ANSIBLE MANAGED BLOCK -->"
@@ -156,7 +153,6 @@
 
     # Configure Entra authentication for OOD
     - name: Setup ood_portal Entra auth file.
-      become: true
       ansible.builtin.blockinfile:
         path: /etc/ood/config/ood_portal.yml
         marker: "#<!-- {mark} ANSIBLE MANAGED BLOCK -->"
@@ -179,7 +175,6 @@
 
     # Update the ood_portal configuration
     - name: New ood_portal.conf file
-      become: true
       ansible.builtin.shell: |
         /opt/ood/ood-portal-generator/sbin/update_ood_portal -f
       environment:
@@ -187,7 +182,6 @@
 
     # Enable SSL for Ubuntu
     - name: Enable ssl for ubuntu
-      become: true
       ansible.builtin.shell: |
         a2enmod ssl
         a2enmod authnz_external
@@ -195,7 +189,6 @@
 
     # Restart Apache for AlmaLinux
     - name: Start apache
-      become: true
       ansible.builtin.service:
         name: httpd
         state: restarted
@@ -204,7 +197,6 @@
 
     # Restart Apache for Ubuntu
     - name: Start apache
-      become: true
       ansible.builtin.service:
         name: apache2
         state: restarted
@@ -213,7 +205,6 @@
 
     # Restart the Dex service only when using LDAP or Entra
     - name: Start dex
-      become: true
       ansible.builtin.service:
         name: ondemand-dex.service
         state: restarted
@@ -223,13 +214,14 @@
 # SELINUX is configured however it is disabled in the OOD VM as the connection app has to be able to execute commands locally from the apache webserver.
 # SELINUX blocks this by default. Once a cluster is added this can be turned back on
 - name: Setup SELinux
-  hosts: 127.0.0.1
+  hosts: localhost
   connection: local
   vars_files: vars.yml
+  become: true
+
   tasks:
     # Update SELinux configuration
     - name: Update /etc/selinux/semanage.conf
-      become: true
       ansible.builtin.lineinfile:
         path: /etc/selinux/semanage.conf
         regexp: "^usepasswd="
@@ -238,7 +230,6 @@
 
     # Set SELinux booleans for OOD
     - name: Sebool for ood
-      become: true
       ansible.builtin.shell: |
         setsebool -P ondemand_manage_user_home_dir=on
         setsebool ondemand_use_ldap 1
@@ -248,13 +239,14 @@
 
 # Clone the CycleCloud connect app repository and set permissions
 - name: Clone CycleCloud connect app
-  hosts: 127.0.0.1
+  hosts: localhost
   connection: local
   vars_files: vars.yml
+  become: true
+
   tasks:
     # Clone the repository
     - name: Clone repo
-      become: true
       ansible.builtin.git:
         repo: "{{ git_url }}"
         dest: /var/www/ood/apps/sys/CycleCloud_Connect
@@ -262,7 +254,6 @@
 
     # Fix permissions for the Ansible directory
     - name: Fix permissions
-      become: true
       ansible.builtin.file:
         path: /var/www/ood/apps/sys/CycleCloud_Connect/Ansible
         mode: '0777'
@@ -270,7 +261,6 @@
 
     # Fix permissions for the CycleCloud Connect directory
     - name: Fix permissions
-      become: true
       ansible.builtin.file:
         path: /var/www/ood/apps/sys/CycleCloud_Connect/
         mode: '0773' # Owner RWX, Group RWX, Public --X this limits it only to root and users in the cyclecloud admin group
@@ -279,12 +269,10 @@
         state: directory
 
     - name: Initialize application
-      become: true
       file:
         path: /var/lib/ondemand-nginx/config/apps/sys/CycleCloud_Connect.conf
         state: touch
 
     - name: update nginx stage
-      become: true
       shell: |
-          /opt/ood/nginx_stage/sbin/update_nginx_stage 
+        /opt/ood/nginx_stage/sbin/update_nginx_stage &>/dev/null || :
