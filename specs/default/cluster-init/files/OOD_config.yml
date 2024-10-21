@@ -48,6 +48,9 @@
 
   tasks:
 
+    - name: New ondemand.yml file
+      ansible.builtin.shell: "> /etc/ood/config/ondemand.d/ondemand.yml"
+
     - name: Common ondemand configuration
       blockinfile:
         path: /etc/ood/config/ondemand.d/ondemand.yml
