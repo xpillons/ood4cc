@@ -48,14 +48,38 @@
 
   tasks:
 
+    - name: Common ondemand configuration
+      blockinfile:
+        path: /etc/ood/config/ondemand.d/ondemand.yml
+        marker: "# {mark} ANSIBLE MANAGED BLOCK - common"
+        block: |
+          ood_apps:
+            dashboard:
+              env:
+                ood_bc_dynamic_js: true
+
+          pinned_apps:
+            - category: 'Interactive Apps'
+            - sys/shell
+
+          host_regex: '[^./]+'
+          node_uri: '/node'
+          rnode_uri: '/rnode'
+
+          pun_custom_env:
+            OOD_DASHBOARD_TITLE: "Open OnDemand for Azure Cycle Cloud"
+            OOD_BRAND_BG_COLOR: "#0078d4"
+            OOD_BRAND_LINK_ACTIVE_BG_COLOR: "#212529"
+            OOD_JOB_NAME_ILLEGAL_CHARS: "/"
+
     # Create a new ood_portal.conf file
     - name: New ood_portal.conf file
       ansible.builtin.shell: "> /etc/ood/config/ood_portal.yml"
 
-    - name: Common ood_portal configuration
+    - name: Common auth configuration
       blockinfile:
         path: /etc/ood/config/ood_portal.yml
-        marker: "# {mark} ANSIBLE MANAGED BLOCK - common"
+        marker: "# {mark} ANSIBLE MANAGED BLOCK - auth"
         block: |
           servername: {{ SERVER_NAME }}
           ssl:
