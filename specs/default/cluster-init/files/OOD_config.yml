@@ -266,10 +266,12 @@
         state: directory
 
     - name: Initialize application
+      become: true
       file:
         path: /var/lib/ondemand-nginx/config/apps/sys/CycleCloud_Connect.conf
         state: touch
 
     - name: update nginx stage
+      become: true
       shell: |
           /opt/ood/nginx_stage/sbin/update_nginx_stage &>/dev/null || :
