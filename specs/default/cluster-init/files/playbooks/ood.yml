@@ -3,9 +3,6 @@
   become: true
   vars_files: vars.yml
 
-  # vars:
-  #   ood_package: "{{ ('ondemand=' if ( ansible_distribution == 'Ubuntu') else 'ondemand-') }}{{ondemand_version}}"
-  
   tasks:
   - name: Wait 300 seconds for the nodes to be ready
     wait_for_connection:
@@ -19,11 +16,6 @@
   - name: set httpd_auth values when using basic auth
     ansible.builtin.include_vars:
       file: "vars-{{auth_method | lower}}.yml"
-
-  # - name: set fqdn
-  #   set_fact:
-  #     ood_fqdn: "{{ var_ood_fqdn | default(ansible_default_ipv4.address) }}"
-
 
   - name: Set up PAM authentication for OOD
     include_role:
