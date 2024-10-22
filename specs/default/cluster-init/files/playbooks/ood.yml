@@ -94,10 +94,13 @@
   #     - ansible_distribution == 'AlmaLinux'
   #     - ansible_distribution_major_version == '8'
 
-  # - name: Generate new ood_portal.conf file
-  #   shell: /opt/ood/ood-portal-generator/sbin/update_ood_portal -f
-  #   when: 
-  #     - ansible_distribution == 'Ubuntu'
+  - name: Generate new ood_portal.conf file
+    shell: /opt/ood/ood-portal-generator/sbin/update_ood_portal -f
+    environment:
+      PATH: '/usr/bin:{{ ansible_env.PATH }}'
+
+    # when: 
+    #   - ansible_distribution == 'Ubuntu'
 
   # - name: Ensure apache is restarted
   #   service: 
