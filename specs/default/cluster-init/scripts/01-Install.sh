@@ -16,6 +16,7 @@ git_branch="main"
 
 
 # Install Ansible and other dependencies
+chmod +x $script_dir/../files/*.sh
 $script_dir/../files/prereqs_install.sh
 
 # Replace values in the vars.yml file with user-configured values from the CC template
