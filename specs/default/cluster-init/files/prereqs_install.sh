@@ -26,8 +26,8 @@ else
     source "${MINICONDA_INSTALL_DIR}/bin/activate"
 fi
 
-printf "Update packages"
-conda update -y --all
+#printf "Update packages"
+#conda update -y --all
 
 # Install Ansible
 printf "Installing Ansible\n"
