@@ -14,6 +14,10 @@ script_dir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 git_url="https://github.com/xpillons/oodconnect4cc.git"
 git_branch="main"
 
+
+# Install Ansible and other dependencies
+$script_dir/../files/prereqs_install.sh
+
 # Replace values in the vars.yml file with user-configured values from the CC template
 VARS_FILE=$script_dir/../files/playbooks/vars.yml
 eval_expr='.auth_method |= "Basic"'
@@ -36,5 +40,5 @@ tenant_id=$(jetpack config ood.entra_tenant_id) yq -i '.tenant_id |= strenv(tena
 # OOD server name - this can be the FQDN or IP address of the OOD server or the hostname. This will be used to generate the self-signed SSL certificate.
 server_name=$(jetpack config ood.server_name `hostname -f`) yq -i '.var_ood_fqdn |= strenv(server_name)' $VARS_FILE
 
-# Run install
+# Install OOD
 $script_dir/../files/install.sh
