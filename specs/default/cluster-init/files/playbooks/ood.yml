@@ -79,31 +79,31 @@
       - SSLProtocol all -SSLv2 -SSLv3 -TLSv1 -TLSv1.1
       - SSLCipherSuite ECDHE-RSA-AES256-GCM-SHA384:ECDHE-RSA-AES128-GCM-SHA256:DHE-RSA-AES256-GCM-SHA384:DHE-RSA-AES128-GCM-SHA256
 
-  - name: activate new apache2 configuration in Ubuntu
-    service:
-      name: apache2
-      state: reloaded
-    when: ansible_distribution == 'Ubuntu'
+  # - name: activate new apache2 configuration in Ubuntu
+  #   service:
+  #     name: apache2
+  #     state: reloaded
+  #   when: ansible_distribution == 'Ubuntu'
 
-  - name: Ensure apache is restarted
-    service: 
-      name: httpd
-      state: restarted
-      enabled: yes
-    when: 
-      - ansible_distribution == 'AlmaLinux'
-      - ansible_distribution_major_version == '8'
+  # - name: Ensure apache is restarted
+  #   service: 
+  #     name: httpd
+  #     state: restarted
+  #     enabled: yes
+  #   when: 
+  #     - ansible_distribution == 'AlmaLinux'
+  #     - ansible_distribution_major_version == '8'
 
   # - name: Generate new ood_portal.conf file
   #   shell: /opt/ood/ood-portal-generator/sbin/update_ood_portal -f
   #   when: 
   #     - ansible_distribution == 'Ubuntu'
 
-  - name: Ensure apache is restarted
-    service: 
-      name: apache2
-      state: restarted
-      enabled: yes
-    when: 
-      - ansible_distribution == 'Ubuntu'
+  # - name: Ensure apache is restarted
+  #   service: 
+  #     name: apache2
+  #     state: restarted
+  #     enabled: yes
+  #   when: 
+  #     - ansible_distribution == 'Ubuntu'
 
