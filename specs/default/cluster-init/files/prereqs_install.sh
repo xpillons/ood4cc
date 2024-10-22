@@ -17,7 +17,7 @@ if [[ ! -d "${MINICONDA_INSTALL_DIR}" ]]; then
 
     # Actually install environment and install in base environment
     if [[ ! -f ${MINICONDA_INSTALL_SCRIPT} ]]; then
-        wget $miniconda_url -O $MINICONDA_INSTALL_SCRIPT
+        wget -q $miniconda_url -O $MINICONDA_INSTALL_SCRIPT
     fi
     bash $MINICONDA_INSTALL_SCRIPT -b -p $MINICONDA_INSTALL_DIR
     source "${MINICONDA_INSTALL_DIR}/bin/activate"
