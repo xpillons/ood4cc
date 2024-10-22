@@ -1,4 +1,9 @@
 ---
+ood_install_apps:
+  cc_connect:
+    repo: '{{ git_url }}'
+    version: main
+
 ood_apps:
   dashboard:
     env:
