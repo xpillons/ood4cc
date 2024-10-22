@@ -1,6 +1,7 @@
 #!/bin/bash
 ANSIBLE_TAGS=$@
 set -e
+OOD_ANSIBLE_VERSION="v3.1.5"
 THIS_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 PLAYBOOKS_DIR=$THIS_DIR/playbooks
 INVENTORY=$PLAYBOOKS_DIR/inventory
@@ -47,8 +48,7 @@ function run_playbook ()
 # Ensure submodule exists
 if [ ! -d "${PLAYBOOKS_DIR}/roles/ood-ansible/.github" ]; then
     printf "Installing OOD Ansible submodule\n"
-    git submodule init
-    git submodule update
+    git clone -b $OOD_ANSIBLE_VERSION https://github.com/OSC/ood-ansible.git $PLAYBOOKS_DIR/roles/ood-ansible
 fi
 
 run_playbook ood $PLAYBOOKS_DIR/ood-overrides.yml
