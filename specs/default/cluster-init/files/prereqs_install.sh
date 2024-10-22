@@ -4,7 +4,7 @@ set -e
 THIS_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
 MINICONDA_URL_LINUX_X86="https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh"
-MINICONDA_INSTALL_DIR=${1:-miniconda}
+MINICONDA_INSTALL_DIR=${1:-$THIS_DIR/miniconda}
 MINICONDA_INSTALL_SCRIPT="miniconda-installer.sh"
 
 os_type=$(uname | awk '{print tolower($0)}')
