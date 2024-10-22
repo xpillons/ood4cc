@@ -4,7 +4,6 @@ set -e
 OOD_ANSIBLE_VERSION="v3.1.5"
 THIS_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 PLAYBOOKS_DIR=$THIS_DIR/playbooks
-INVENTORY=$PLAYBOOKS_DIR/inventory
 
 load_miniconda() {
   # Note: packaging this inside a function to avoid forwarding arguments to conda
@@ -35,7 +34,7 @@ function run_playbook ()
       options+=" --extra-vars=@$PLAYBOOKS_DIR/extra_vars.yml"
     fi
     echo "Running playbook $PLAYBOOKS_DIR/$playbook.yml ..."
-    ansible-playbook -i $INVENTORY $PLAYBOOKS_DIR/$playbook.yml $options $ANSIBLE_TAGS || exit 1
+    ansible-playbook -i $PLAYBOOKS_DIR/$playbook.yml $options $ANSIBLE_TAGS || exit 1
     if [ -e $PLAYBOOKS_DIR/extra_vars.yml ]; then
       rm $PLAYBOOKS_DIR/extra_vars.yml
     fi

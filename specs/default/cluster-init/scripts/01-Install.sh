@@ -17,11 +17,13 @@ git_branch="main"
 
 # Install Ansible and other dependencies
 chmod +x $script_dir/../files/*.sh
-$script_dir/../files/prereqs_install.sh
+if [ ! -e prereqs_install.ok ]; then
+    $script_dir/../files/prereqs_install.sh
+    touch prereqs_install.ok
+fi
 
 # Replace values in the vars.yml file with user-configured values from the CC template
 VARS_FILE=$script_dir/../files/playbooks/vars.yml
-eval_expr='.auth_method |= "Basic"'
 
  # [Basic, LDAP, Entra] Select Authentication method. Basic auth will use local accounts that have a password set.
 auth_method=$(jetpack config ood.auth_method Basic) yq -i '.auth_method |= strenv(auth_method)' $VARS_FILE 
