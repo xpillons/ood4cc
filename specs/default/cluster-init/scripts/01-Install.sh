@@ -41,7 +41,7 @@ client_secret=$(jetpack config ood.entra_client_secret) yq -i '.client_secret |=
 tenant_id=$(jetpack config ood.entra_tenant_id) yq -i '.tenant_id |= strenv(tenant_id)' $VARS_FILE # Tenant ID for Entra
 
 # OOD server name - this can be the FQDN or IP address of the OOD server or the hostname. This will be used to generate the self-signed SSL certificate.
-server_name=$(jetpack config ood.server_name `hostname -f`) yq -i '.var_ood_fqdn |= strenv(server_name)' $VARS_FILE
+ood_fqdn=$(jetpack config ood.server_name `hostname -f`) yq -i '.ood_fqdn |= strenv(ood_fqdn)' $VARS_FILE
 
 # Install OOD
 $script_dir/../files/install.sh

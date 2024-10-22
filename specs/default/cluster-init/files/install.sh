@@ -50,5 +50,8 @@ if [ ! -d "${PLAYBOOKS_DIR}/roles/ood-ansible/.github" ]; then
     git clone -b $OOD_ANSIBLE_VERSION https://github.com/OSC/ood-ansible.git $PLAYBOOKS_DIR/roles/ood-ansible
 fi
 
+# This trick is to avoid the error when running the OOD tasks handlers with errors like these:
+# Ignoring bcrypt-3.1.16 because its extensions are not built. Try: gem pristine bcrypt --version 3.1.16
 export PATH=/usr/bin:$PATH
-run_playbook ood $PLAYBOOKS_DIR/ood-overrides.yml
+export ANSIBLE_VERBOSITY=2
+run_playbook ood $PLAYBOOKS_DIR/vars-ood.yml

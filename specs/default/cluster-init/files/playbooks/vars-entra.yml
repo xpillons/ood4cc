@@ -1,0 +1,15 @@
+---
+oidc_settings:
+  OIDCSSLValidateServer: "Off" # Required due to self signed certs
+dex:
+  connectors:
+    - type: microsoft
+      id: microsoft
+      name: Microsoft
+      config:
+        clientID: '{{ client_id }}'
+        clientSecret: '{{ client_secret }}'
+        redirectURI: 'https://{{ var_ood_fqdn }}/dex/callback'
+        tenant: '{{ tenant_id }}'
+oidc_remote_user_claim: "email"
+logout_redirect: "/oidc?logout=https%3A%2F%2F {{ var_ood_fqdn }}"

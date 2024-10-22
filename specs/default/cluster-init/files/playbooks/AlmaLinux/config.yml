@@ -1,0 +1,13 @@
+---
+- name: Make sure we have the latest root certificates in AlmaLinux
+  yum:
+    name: ca-certificates
+    state: latest
+    lock_timeout : 180
+
+- name: set variables for AlmaLinux
+  set_fact:
+    custom_vhost_directives:
+      - AddExternalAuth pwauth /usr/bin/pwauth
+      - SetExternalAuthMethod pwauth pipe
+    ood_package: "ondemand-{{ondemand_version}}"

@@ -1,0 +1,12 @@
+---
+- name: Make sure we have the latest root certificates in Ubuntu
+  apt:
+    name: ca-certificates
+    state: latest
+
+- name: set variables for Ubuntu
+  set_fact:
+    custom_vhost_directives:
+      - AddExternalAuth pwauth /usr/sbin/pwauth
+      - SetExternalAuthMethod pwauth pipe
+    ood_package: "ondemand={{ondemand_version}}"

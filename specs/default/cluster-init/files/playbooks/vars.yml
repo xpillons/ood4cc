@@ -1,6 +1,6 @@
 ondemand_version: 3.1.9
 auth_method: Basic # [Basic, LDAP, Entra]
-var_ood_fqdn:
+ood_fqdn:
 
 # LDAP config
 ldap_host: 
