@@ -1,0 +1,6 @@
+---
+
+- name: Set up mod_authnz_external modules (for cyclecloud proxy)
+  yum:
+    name: mod_authnz_external,pwauth
+    lock_timeout: 180  

@@ -1,0 +1,19 @@
+---
+
+- name: Install dependencies
+  hosts: localhost
+  connection: local
+  gather_facts: true
+
+  vars:
+    yq_version: v4.40.5
+    yq_binary: yq_linux_amd64
+
+  tasks:
+  - name: "yq: Download and install (Ubuntu)"
+    get_url:
+      url: "https://github.com/mikefarah/yq/releases/download/{{ yq_version }}/{{ yq_binary }}"
+      dest: /usr/bin/yq
+      mode: 0755
+    become: true
+

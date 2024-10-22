@@ -1,0 +1,19 @@
+ondemand_version: 3.1.9
+auth_method: Basic # [Basic, LDAP, Entra]
+var_ood_fqdn:
+
+# LDAP config
+ldap_host: 
+bind_DN: 
+bind_PW: 
+user_base_DN: 
+group_base_DN: 
+
+# Entra config
+client_id: 
+client_secret: 
+tenant_id: 
+
+# OOD connection app settings
+git_url: https://github.com/xpillons/oodconnect4cc.git
+git_branch: main

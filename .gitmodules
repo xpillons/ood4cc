@@ -1,0 +1,3 @@
+[submodule "specs/default/cluster-init/files/playbooks/roles/ood-ansible"]
+	path = specs/default/cluster-init/files/playbooks/roles/ood-ansible
+	url = https://github.com/OSC/ood-ansible.git

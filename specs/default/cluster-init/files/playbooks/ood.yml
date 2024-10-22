@@ -1,0 +1,109 @@
+- hosts: localhost
+  gather_facts: no
+  become: true
+  vars_files: vars.yml
+
+  vars:
+    ood_package: "{{ ('ondemand=' if ( ansible_distribution == 'Ubuntu') else 'ondemand-') }}{{ondemand_version}}"
+  tasks:
+  - name: Wait 300 seconds for the nodes to be ready
+    wait_for_connection:
+      timeout: 300
+  - name: Gather facts for first time
+    setup:
+
+  - name: set httpd_auth values when using basic auth
+    set_fact:
+      httpd_auth:
+        - AuthType Basic
+        - AuthName "Open OnDemand"
+        - AuthBasicProvider external
+        - AuthExternal pwauth
+        - Require valid-user
+
+  - name: set custom_vhost_directives values when using basic auth
+    set_fact:
+      custom_vhost_directives:
+        - AddExternalAuth pwauth /usr/sbin/pwauth
+        - SetExternalAuthMethod pwauth pipe
+    when: ansible_distribution == 'Ubuntu'
+
+  - name: set custom_vhost_directives values when using basic auth
+    set_fact:
+      custom_vhost_directives:
+        - AddExternalAuth pwauth /usr/bin/pwauth
+        - SetExternalAuthMethod pwauth pipe
+    when: ansible_distribution == 'AlmaLinux'
+
+  - name: set fqdn
+    set_fact:
+      ood_fqdn: "{{ var_ood_fqdn | default(ansible_default_ipv4.address) }}"
+
+  - name: Make sure we have the latest root certificates in AlmaLinux
+    yum:
+      name: ca-certificates
+      state: latest
+      lock_timeout : 180
+    when: 
+      - ansible_distribution == 'AlmaLinux'
+
+  - name: Make sure we have the latest root certificates in Ubuntu
+    apt:
+      name: ca-certificates
+      state: latest
+    when: ansible_distribution == 'Ubuntu'
+
+  - name: Set up PAM authentication for OOD
+    include_role:
+      name: ood_pam_auth
+
+  - name: Generate a Self Signed OpenSSL certificate
+    shell: |
+      mkdir -pv /etc/ssl/{{ ood_fqdn }}
+      cd /etc/ssl/{{ ood_fqdn }}
+      openssl req -nodes -new -x509 -keyout {{ ood_fqdn }}.key -out {{ ood_fqdn }}.crt -subj "/CN={{ ood_fqdn }}"
+    args:
+      creates: "/etc/ssl/{{ ood_fqdn }}/{{ ood_fqdn }}.crt"
+
+  - name: Run the ood-ansible role for HTTPS
+    include_role:
+      name: ood-ansible
+    vars:
+      ondemand_package: '{{ ood_package }}'
+      servername: '{{ ood_fqdn }}'
+      httpd_port: 443
+      ssl:
+      - SSLCertificateFile "/etc/ssl/{{ ood_fqdn }}/{{ ood_fqdn }}.crt"
+      - SSLCertificateKeyFile "/etc/ssl/{{ ood_fqdn }}/{{ ood_fqdn }}.key"
+      - "{{SSLCertificateChainFile | default(None)}}"
+      - SSLProtocol all -SSLv2 -SSLv3 -TLSv1 -TLSv1.1
+      - SSLCipherSuite ECDHE-RSA-AES256-GCM-SHA384:ECDHE-RSA-AES128-GCM-SHA256:DHE-RSA-AES256-GCM-SHA384:DHE-RSA-AES128-GCM-SHA256
+
+  - name: activate new apache2 configuration in Ubuntu
+    service:
+      name: apache2
+      state: reloaded
+    when: ansible_distribution == 'Ubuntu'
+
+  - name: Ensure apache is restarted
+    service: 
+      name: httpd
+      state: restarted
+      enabled: yes
+    when: 
+      - ansible_distribution == 'AlmaLinux'
+      - ansible_distribution_major_version == '8'
+
+  - name: Generate new ood_portal.conf file
+    shell: /opt/ood/ood-portal-generator/sbin/update_ood_portal -f
+    when: 
+      - ansible_distribution == 'Ubuntu'
+
+  - name: Ensure apache is restarted
+    service: 
+      name: apache2
+      state: restarted
+      enabled: yes
+    when: 
+      - ansible_distribution == 'Ubuntu'
+
