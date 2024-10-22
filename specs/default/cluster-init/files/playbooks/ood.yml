@@ -85,7 +85,7 @@
       PATH: '/usr/bin:{{ ansible_env.PATH }}'
 
   - name: Update nginx stage
-    shell: "{{ ood_base_dir }}/nginx_stage/sbin/update_nginx_stage"
+    shell: "/opt/ood/nginx_stage/sbin/update_nginx_stage"
     environment:
       PATH: '/usr/bin:{{ ansible_env.PATH }}'
 
