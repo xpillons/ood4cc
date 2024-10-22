@@ -69,7 +69,7 @@
     include_role:
       name: ood-ansible
     vars:
-      ondemand_package: '{{ ood_package }}'
+#      ondemand_package: '{{ ood_package }}'
       servername: '{{ ood_fqdn }}'
       httpd_port: 443
       ssl:
