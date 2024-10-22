@@ -50,5 +50,5 @@ if [ ! -d "${PLAYBOOKS_DIR}/roles/ood-ansible/.github" ]; then
     git clone -b $OOD_ANSIBLE_VERSION https://github.com/OSC/ood-ansible.git $PLAYBOOKS_DIR/roles/ood-ansible
 fi
 
-export ANSIBLE_EXECUTABLE=/bin/bash
+export PATH=/usr/bin:$PATH
 run_playbook ood $PLAYBOOKS_DIR/ood-overrides.yml
