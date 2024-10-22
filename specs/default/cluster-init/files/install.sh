@@ -34,7 +34,7 @@ function run_playbook ()
       options+=" --extra-vars=@$PLAYBOOKS_DIR/extra_vars.yml"
     fi
     echo "Running playbook $PLAYBOOKS_DIR/$playbook.yml ..."
-    ansible-playbook -i $PLAYBOOKS_DIR/$playbook.yml $options $ANSIBLE_TAGS || exit 1
+    ansible-playbook $PLAYBOOKS_DIR/$playbook.yml $options $ANSIBLE_TAGS || exit 1
     if [ -e $PLAYBOOKS_DIR/extra_vars.yml ]; then
       rm $PLAYBOOKS_DIR/extra_vars.yml
     fi
