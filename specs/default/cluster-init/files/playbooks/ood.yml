@@ -53,6 +53,31 @@
       regexp: "^#passenger_python|^passenger_python"
       line: "passenger_python: '/mnt/cluster-init/ood/default/files/python_wrapper.sh'"
 
+  # Fix permissions for the Ansible directory, so the vars.yml file can be written
+  - name: Fix permissions
+    ansible.builtin.file:
+      path: /var/www/ood/apps/sys/cc_connect/Ansible
+      mode: '0777'
+      state: directory
+
+  # Fix permissions for the CycleCloud Connect directory
+  - name: Fix permissions
+    ansible.builtin.file:
+      path: /var/www/ood/apps/sys/cc_connect/
+      mode: '0773' # Owner RWX, Group RWX, Public --X this limits it only to root and users in the cyclecloud admin group
+      owner: 'root'
+      group: 'cyclecloud'
+      state: directory
+
+  - name: Initialize application
+    file:
+      path: /var/lib/ondemand-nginx/config/apps/sys/cc_connect.conf
+      state: touch
+
+  - name: update nginx stage
+    shell: |
+      /opt/ood/nginx_stage/sbin/update_nginx_stage &>/dev/null || :
+
   # - name: Generate new ood_portal.conf file
   #   shell: |
   #     /opt/ood/ood-portal-generator/sbin/update_ood_portal -f
