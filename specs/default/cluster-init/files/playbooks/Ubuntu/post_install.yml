@@ -1,9 +1,9 @@
 ---
-- name: install python3-pip
-  apt:
-    name: python3-pip
-    state: latest
+# - name: install python3-pip
+#   apt:
+#     name: python3-pip
+#     state: latest
 
-- name: install flask
-  shell: pip3 install flask
+# - name: install flask
+#   shell: pip3 install flask
 

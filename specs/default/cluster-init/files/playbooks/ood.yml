@@ -51,7 +51,7 @@
       state: present
       dest: /etc/ood/config/nginx_stage.yml
       regexp: "^#passenger_python|^passenger_python"
-      line: "passenger_python: '/usr/bin/python3'"
+      line: "passenger_python: '/mnt/cluster-init/ood/default/files/python_wrapper.sh'"
 
   # - name: Generate new ood_portal.conf file
   #   shell: |
