@@ -20,7 +20,7 @@ Autoscale = false
     Azure.Identities = $ManagedIdentity
 
         [[[configuration]]]
-    
+
         # Disable normal NFS exports and mounts
         cyclecloud.mounts.sched.disabled = true
         cyclecloud.mounts.shared.disabled = true
@@ -75,6 +75,7 @@ Autoscale = false
 
         [[[configuration]]]
         cyclecloud.discoverable = true
+        run_list = recipe[cuser]
 
         [[[volume boot]]]
         Size = ${ifThenElse(BootDiskSize > 0, BootDiskSize, undefined)}
