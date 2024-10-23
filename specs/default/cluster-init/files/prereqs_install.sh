@@ -37,6 +37,8 @@ python3 -m pip install -r ${THIS_DIR}/requirements.txt
 printf "Installing dependencies\n"
 ansible-playbook ${THIS_DIR}/dependencies.yml
 
+# Create oodconnector environment
+conda create --clone base --name oodconnector
 
 printf "\n\n"
 printf "Applications installed\n"
