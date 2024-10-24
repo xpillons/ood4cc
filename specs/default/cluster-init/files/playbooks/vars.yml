@@ -4,9 +4,12 @@ ood_fqdn:
 
 # LDAP config
 ldap_host: 
+# cn=LDAP Binder,dc=hpc,dc=azure
 bind_DN: 
 bind_PW: 
+#ou=Users,dc=hpc,dc=azure
 user_base_DN: 
+#ou=Groups,dc=hpc,dc=azure
 group_base_DN: 
 
 # Entra config

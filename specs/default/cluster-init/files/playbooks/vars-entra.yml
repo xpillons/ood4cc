@@ -1,5 +1,7 @@
 ---
 install_ondemand_dex: true
+httpd_auth:
+- Require valid-user
 oidc_settings:
   OIDCSSLValidateServer: "Off" # Required due to self signed certs
 dex:

@@ -161,7 +161,7 @@ Order = 20
 
         [[[parameter ood_ldap_bind_dn]]]
         Label = Bind DN 
-        Description = Bind DN for LDAP
+        Description = Bind DN for LDAP (cn=LDAP Binder,dc=hpc,dc=azure)
         Config.ParameterType = String
         Conditions.Excluded := ood_auth_method != "LDAP"
 
@@ -173,7 +173,7 @@ Order = 20
 
         [[[parameter ood_ldap_user_base_dn]]]
         Label = Search Users DN
-        Description = Base DN for user entries
+        Description = Base DN for user entries (ou=Users,dc=hpc,dc=azure)
         Config.ParameterType = String
         Conditions.Excluded := ood_auth_method != "LDAP"
 
