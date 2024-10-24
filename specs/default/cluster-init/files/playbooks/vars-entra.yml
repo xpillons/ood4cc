@@ -1,4 +1,5 @@
 ---
+install_ondemand_dex: true
 oidc_settings:
   OIDCSSLValidateServer: "Off" # Required due to self signed certs
 dex:
