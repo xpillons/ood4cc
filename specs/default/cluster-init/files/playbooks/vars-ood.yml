@@ -3,6 +3,12 @@ ood_install_apps:
   cc_connect:
     repo: '{{ git_url }}'
     version: main
+  ccw_codeserver:
+    repo: 'https://github.com/xpillons/ccw_codeserver.git'
+    version: main
+  ccw_jupyter:
+    repo: 'https://github.com/xpillons/ccw_jupyter.git'
+    version: main
 
 ood_apps:
   dashboard:
@@ -26,3 +32,4 @@ pun_custom_env:
 # See https://osc.github.io/ood-documentation/latest/customization.html#pinning-applications-to-the-dashboard
 pinned_apps:
   - sys/shell
+  - category: 'Interactive Apps'
