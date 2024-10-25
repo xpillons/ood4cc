@@ -11,7 +11,7 @@ dex_settings: |
     connectors: 
       - type: ldap
         id: ldap
-        name: LDAP
+        name: ActiveDirectory
         config:
           host: '{{ ldap_host }}'
           insecureNoSSL: true
@@ -21,15 +21,15 @@ dex_settings: |
           bindPW: '{{ bind_PW }}'
           userSearch:
             baseDN: '{{ user_base_DN }}'
-            filter: "(objectClass=posixAccount)"
-            username: uid
-            idAttr: uid
-            emailAttr: mail
-            nameAttr: gecos
+            filter: "(objectClass=person)"
+            username: userPrincipalName
+            idAttr: DN
+            emailAttr: userPrincipalName
+            nameAttr: cn
             preferredUsernameAttr: uid
           groupSearch:
             baseDN: '{{ group_base_DN }}'
-            filter: "(objectClass=posixGroup)"
+            filter: "(objectClass=group)"
             userMatchers:
               - userAttr: DN
                 groupAttr: member

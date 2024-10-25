@@ -51,6 +51,14 @@
         - SSLProxyCheckPeerName Off
         - SSLProxyCheckPeerExpire Off
 
+  # Restart the Dex service only when using LDAP or Entra
+  - name: Start dex
+    ansible.builtin.service:
+      name: ondemand-dex.service
+      state: restarted
+      enabled: true
+    when: auth_method != "Basic"
+
   - name: Perform OS dependent post installation tasks
     include_tasks: "{{ansible_distribution}}/post_install.yml"
 
