@@ -1,31 +1,36 @@
 ---
 install_ondemand_dex: true
+httpd_auth:
+- AuthType openid-connect
+- Require valid-user
 oidc_settings:
   OIDCSSLValidateServer: "Off" # Required due to self signed certs
-dex:
-  connectors:
-    - type: ldap
-      id: ldap
-      name: LDAP
-      config:
-        host: '{{ ldap_host }}'
-        insecureNoSSL: true
-        insecureSkipVerify: false
-        startTLS: true
-        bindDN: '{{ bind_DN }}'
-        bindPW: '{{ bind_PW }}'
-        userSearch:
-          baseDN: '{{ user_base_DN }}'
-          filter: "(objectClass=posixAccount)"
-          username: uid
-          idAttr: uid
-          emailAttr: mail
-          nameAttr: gecos
-          preferredUsernameAttr: uid
-        groupSearch:
-          baseDN: '{{ group_base_DN }}'
-          filter: "(objectClass=posixGroup)"
-          userMatchers:
-            - userAttr: DN
-              groupAttr: member
-          nameAttr: cn
+dex_settings: |
+  dex:
+    # https://dexidp.io/docs/connectors/ldap/
+    connectors: 
+      - type: ldap
+        id: ldap
+        name: LDAP
+        config:
+          host: '{{ ldap_host }}'
+          insecureNoSSL: true
+          insecureSkipVerify: false
+          startTLS: true
+          bindDN: '{{ bind_DN }}'
+          bindPW: '{{ bind_PW }}'
+          userSearch:
+            baseDN: '{{ user_base_DN }}'
+            filter: "(objectClass=posixAccount)"
+            username: uid
+            idAttr: uid
+            emailAttr: mail
+            nameAttr: gecos
+            preferredUsernameAttr: uid
+          groupSearch:
+            baseDN: '{{ group_base_DN }}'
+            filter: "(objectClass=posixGroup)"
+            userMatchers:
+              - userAttr: DN
+                groupAttr: member
+            nameAttr: cn
