@@ -5,6 +5,7 @@ httpd_auth:
 - Require valid-user
 oidc_settings:
   OIDCSSLValidateServer: "Off" # Required due to self signed certs
+dex_uri: /dex
 dex_settings: |
   dex:
     # https://dexidp.io/docs/connectors/ldap/

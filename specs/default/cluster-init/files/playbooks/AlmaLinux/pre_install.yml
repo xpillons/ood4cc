@@ -11,3 +11,4 @@
       - AddExternalAuth pwauth /usr/bin/pwauth
       - SetExternalAuthMethod pwauth pipe
     ood_package: "ondemand-{{ondemand_version}}"
+  when: auth_method != "Basic"
