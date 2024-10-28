@@ -5,12 +5,20 @@
     state: latest
     lock_timeout : 180
 
-- name: install pwauth and apache2 modules
-  yum:
-    name:
-      - mod_authnz_external
-      - mod_authnz_pam
-      - pwauth
+- name: Auth Basic specific installation 
+  block:
+    - name: install pwauth and apache2 modules
+      yum:
+        name:
+          - mod_authnz_external
+          - mod_authnz_pam
+          - pwauth
+    - name: set variables for AlmaLinux
+      set_fact:
+        custom_vhost_directives:
+          - AddExternalAuth pwauth /usr/bin/pwauth
+          - SetExternalAuthMethod pwauth pipe
+
   when: auth_method == "Basic"
 
 
@@ -20,9 +28,3 @@
     state: latest
   when: auth_method == "LDAP"
 
-- name: set variables for AlmaLinux
-  set_fact:
-    custom_vhost_directives:
-      - AddExternalAuth pwauth /usr/bin/pwauth
-      - SetExternalAuthMethod pwauth pipe
-  when: auth_method != "Basic"
