@@ -138,7 +138,7 @@ Order = 20
 
         [[[parameter ood_server_name]]]
         Label = FQDN 
-        Description = The FQDN for the Self Signed SSL Certificate
+        Description = The FQDN for the Self Signed SSL Certificate. Leave blank to use the assigned private IP
         Config.ParameterType = String
 
         [[[parameter ood_auth_method]]]
