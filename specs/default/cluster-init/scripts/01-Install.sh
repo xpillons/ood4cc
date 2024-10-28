@@ -53,7 +53,7 @@ if [ "$ood_fqdn" == "none" ]; then
     ood_fqdn=$ood_local_ipv4
 fi
 
-echo $ood_fqdn yq -i '.ood_fqdn |= strenv(ood_fqdn)' $VARS_FILE
+ood_fqdn=$ood_fqdn yq -i '.ood_fqdn |= strenv(ood_fqdn)' $VARS_FILE
 
 # Install OOD
 $script_dir/../files/install.sh
