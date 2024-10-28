@@ -8,7 +8,7 @@
   apt:
     name: ldap-utils
     state: latest
-  when: auth_method != "LDAP"
+  when: auth_method == "LDAP"
 
 - name: set variables for Ubuntu
   set_fact:

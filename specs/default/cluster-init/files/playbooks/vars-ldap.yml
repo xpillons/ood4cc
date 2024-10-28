@@ -27,7 +27,7 @@ dex_settings: |
             idAttr: DN
             emailAttr: userPrincipalName
             nameAttr: cn
-            preferredUsernameAttr: userPrincipalName
+            preferredUsernameAttr: sAMAccountName
           groupSearch:
             baseDN: '{{ group_base_DN }}'
             filter: "(objectClass=group)"
