@@ -15,5 +15,4 @@
     custom_vhost_directives:
       - AddExternalAuth pwauth /usr/sbin/pwauth
       - SetExternalAuthMethod pwauth pipe
-    ood_package: "ondemand={{ondemand_version}}"
   when: auth_method != "Basic"

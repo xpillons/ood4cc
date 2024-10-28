@@ -21,6 +21,10 @@
     include_role:
       name: ood_pam_auth
 
+  - name: set variables for Ubuntu
+    set_fact:
+      ood_package: "ondemand={{ondemand_version}}"
+
   - name: Generate a Self Signed OpenSSL certificate
     shell: |
       mkdir -pv /etc/ssl/{{ ood_fqdn }}
