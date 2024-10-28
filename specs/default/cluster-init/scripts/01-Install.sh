@@ -42,7 +42,18 @@ tenant_id=$(jetpack config ood.entra_tenant_id) yq -i '.tenant_id |= strenv(tena
 
 # OOD server name - this can be the FQDN or IP address of the OOD server or the hostname. This will be used to generate the self-signed SSL certificate.
 ood_local_ipv4=$(jetpack config cloud.local_ipv4)
-ood_fqdn=$(jetpack config ood.server_name $ood_local_ipv4) yq -i '.ood_fqdn |= strenv(ood_fqdn)' $VARS_FILE
+ood_fqdn=$(jetpack config ood.server_name) 
+# If ood_fqdn is empty, set it to the local IP address
+if [ -z "$ood_fqdn" ]; then
+    ood_fqdn=$ood_local_ipv4
+fi
+# If ood_fqdn is None, set it to the local IP address
+ood_fqdn=$(echo $ood_fqdn | tr '[:upper:]' '[:lower:]')
+if [ "$ood_fqdn" == "none" ]; then
+    ood_fqdn=$ood_local_ipv4
+fi
+
+echo $ood_fqdn yq -i '.ood_fqdn |= strenv(ood_fqdn)' $VARS_FILE
 
 # Install OOD
 $script_dir/../files/install.sh
