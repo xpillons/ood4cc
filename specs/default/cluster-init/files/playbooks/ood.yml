@@ -51,6 +51,9 @@
         - SSLProxyCheckPeerName Off
         - SSLProxyCheckPeerExpire Off
 
+  - name: Perform OS dependent post installation tasks
+    include_tasks: "{{ansible_distribution}}/post_install.yml"
+
   # Restart the Dex service only when using LDAP or Entra
   - name: Start dex
     ansible.builtin.service:
@@ -59,10 +62,7 @@
       enabled: true
     when: auth_method != "Basic"
 
-  - name: Perform OS dependent post installation tasks
-    include_tasks: "{{ansible_distribution}}/post_install.yml"
-
-  - name: Use Python3 for passenger apps
+  - name: Use Python3 wrapper for passenger apps
     lineinfile:
       state: present
       dest: /etc/ood/config/nginx_stage.yml
@@ -100,22 +100,6 @@
   #   environment:
   #     PATH: '/usr/bin:{{ ansible_env.PATH }}'
 
-  # - name: Update nginx stage
-  #   shell: "/opt/ood/nginx_stage/sbin/update_nginx_stage"
-  #   environment:
-  #     PATH: '/usr/bin:{{ ansible_env.PATH }}'
 
-  # - name: activate new apache2 configuration in Ubuntu
-  #   service:
-  #     name: apache2
-  #     state: reloaded
-  #   when: ansible_distribution == 'Ubuntu'
 
-  # - name: Ensure apache is restarted
-  #   service: 
-  #     name: httpd
-  #     state: restarted
-  #     enabled: yes
-  #   when: 
-  #     - ansible_distribution == 'AlmaLinux'
-  #     - ansible_distribution_major_version == '8'
+

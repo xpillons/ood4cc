@@ -7,3 +7,7 @@
 # - name: install flask
 #   shell: pip3 install flask
 
+- name: activate new apache2 configuration in Ubuntu
+  service:
+    name: apache2
+    state: reloaded
