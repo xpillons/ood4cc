@@ -4,6 +4,12 @@
     name: ca-certificates
     state: latest
 
+- name: Install LDAP search utility
+  apt:
+    name: ldap-utils
+    state: latest
+  when: auth_method != "LDAP"
+
 - name: set variables for Ubuntu
   set_fact:
     custom_vhost_directives:

@@ -23,11 +23,11 @@ dex_settings: |
           userSearch:
             baseDN: '{{ user_base_DN }}'
             filter: "(objectClass=person)"
-            username: userPrincipalName
+            username: name
             idAttr: DN
-            emailAttr: userPrincipalName
+            emailAttr: name
             nameAttr: cn
-            preferredUsernameAttr: uid
+            preferredUsernameAttr: name
           groupSearch:
             baseDN: '{{ group_base_DN }}'
             filter: "(objectClass=group)"

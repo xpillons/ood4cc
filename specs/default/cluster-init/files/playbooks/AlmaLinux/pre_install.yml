@@ -5,6 +5,12 @@
     state: latest
     lock_timeout : 180
 
+- name: Install LDAP search utility
+  yum:
+    name: openldap-clients
+    state: latest
+  when: auth_method != "LDAP"
+
 - name: set variables for AlmaLinux
   set_fact:
     custom_vhost_directives:
