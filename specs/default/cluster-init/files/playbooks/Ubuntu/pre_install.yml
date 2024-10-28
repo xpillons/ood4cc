@@ -4,6 +4,14 @@
     name: ca-certificates
     state: latest
 
+- name: install pwauth and apache2 modules
+  apt:
+    name:
+      - libapache2-mod-authnz-pam
+      - libapache2-mod-authnz-external
+      - pwauth
+  when: auth_method == "Basic"
+
 - name: Install LDAP search utility
   apt:
     name: ldap-utils

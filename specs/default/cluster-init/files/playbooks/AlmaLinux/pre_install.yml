@@ -5,6 +5,15 @@
     state: latest
     lock_timeout : 180
 
+- name: install pwauth and apache2 modules
+  yum:
+    name:
+      - mod_authnz_external
+      - mod_authnz_pam
+      - pwauth
+  when: auth_method == "Basic"
+
+
 - name: Install LDAP search utility
   yum:
     name: openldap-clients
