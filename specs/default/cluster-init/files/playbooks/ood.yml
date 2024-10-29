@@ -66,6 +66,14 @@
       enabled: true
     when: auth_method != "Basic"
 
+  # Create a script to run before the PUN is created, to set the user's environment
+  # Defined in the pun_pre_hook_root_cmd variable set in the ood-overrides-common.yml file
+  - name: Copy the pun_pre_hook script
+    copy: 
+      src: files/pun_pre_hook.sh
+      dest: /etc/ood/config/pun_pre_hook.sh
+      mode: 0755
+
   # Hack to support SSL proxied apps with port 443
   # /opt/ood/mod_ood_proxy/lib/ood/proxy.lua
   - name: Copy the updated proxy.lua 
