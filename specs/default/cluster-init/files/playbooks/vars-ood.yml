@@ -65,6 +65,7 @@ host_regex: '[^./]+'
 node_uri: '/node'
 rnode_uri: '/rnode'
 pun_pre_hook_root_cmd: /etc/ood/config/pun_pre_hook.sh
+cancel_session_enabled: true
 
 pun_custom_env:
   OOD_DASHBOARD_TITLE: "Open OnDemand for Azure CycleCloud"
