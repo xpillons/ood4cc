@@ -18,13 +18,12 @@
         custom_vhost_directives:
           - AddExternalAuth pwauth /usr/bin/pwauth
           - SetExternalAuthMethod pwauth pipe
-
   when: auth_method == "Basic"
 
-
-- name: Install LDAP search utility
-  yum:
-    name: openldap-clients
-    state: latest
+- name: Auth LDAP specific installation 
+  block:
+    - name: Install LDAP search utility
+      yum:
+        name: openldap-clients
+        state: latest
   when: auth_method == "LDAP"
-

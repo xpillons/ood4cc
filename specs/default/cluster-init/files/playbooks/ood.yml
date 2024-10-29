@@ -58,7 +58,7 @@
   - name: Perform OS dependent post installation tasks
     include_tasks: "{{ansible_distribution}}/post_install.yml"
 
-  # Restart the Dex service only when using LDAP or Entra
+  # Restart the Dex service only when using LDAP or Entra, this need to be done after the restart of Apache so the new OOD configuration will be created
   - name: Start dex
     ansible.builtin.service:
       name: ondemand-dex.service

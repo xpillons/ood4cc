@@ -16,6 +16,51 @@ ood_apps:
       ood_bc_dynamic_js: true
 #     file_upload_max: "{{ondemand.file_upload_max | default(omit)}}"
 
+  # bc_desktop:
+  #   title: "Linux Desktop"
+  #   cluster: ccw
+  #   icon: fa://linux
+  #   form:
+  #     - desktop
+  #     - target
+  #     - bc_num_hours
+  #   attributes:
+  #     desktop: mate
+  #     target:
+  #       widget: "select"
+  #       label: "Session target"
+  #       help: |
+  #         Select the resource target for the remote desktop session <br>
+  #       options:
+  #         - htc
+  #         - hpc
+  #         - gpu
+  #     bc_num_hours:
+  #       widget: "number_field"
+  #       label: "Maximum duration in hours of your remote session"
+  #       value: 1
+  #       help: |
+  #         This is the maximum duration in hours of your remote session once started. <br> 
+  #       step: 1
+  #   submit: |
+  #     <%-
+  #       scheduler_args = ["-p", target]
+
+  #       # If the user has specified a node ratio greather than 1, set the job ppn
+  #       gpu_count = 1
+  #       scheduler_args += ["--exclusive"]
+  #       if gpu_count > 0
+  #         scheduler_args += ["--gpus=%d" % gpu_count]
+  #       end
+
+  #     -%>
+  #     ---
+  #     script:
+  #       native:
+  #       <%- scheduler_args.each do |arg| %>
+  #         - "<%= arg %>"
+  #       <%- end %>
+
 host_regex: '[^./]+'
 node_uri: '/node'
 rnode_uri: '/rnode'

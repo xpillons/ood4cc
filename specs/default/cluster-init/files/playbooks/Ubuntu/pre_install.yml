@@ -19,10 +19,11 @@
           - SetExternalAuthMethod pwauth pipe
   when: auth_method == "Basic"
 
-
-- name: Install LDAP search utility
-  apt:
-    name: ldap-utils
-    state: latest
+- name: Auth LDAP specific installation 
+  block:
+    - name: Install LDAP search utility
+      apt:
+        name: ldap-utils
+        state: latest
   when: auth_method == "LDAP"
 
