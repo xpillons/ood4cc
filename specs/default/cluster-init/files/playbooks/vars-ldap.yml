@@ -6,6 +6,8 @@ httpd_auth:
 oidc_settings:
   OIDCSSLValidateServer: "Off" # Required due to self signed certs
 dex_uri: /dex
+# ldapsearch query to help troubleshooting LDAP for AD
+# ldapsearch -x -H ldap://adds -D ldap_access@hpc.azure -b 'cn=users,dc=hpc,dc=azure' -w 'password' -s sub "(&(objectClass=person)(userPrincipalName=hpcadmin@hpc.azure))"
 dex_settings: |
   dex:
     # https://dexidp.io/docs/connectors/ldap/

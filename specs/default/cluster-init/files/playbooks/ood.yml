@@ -66,6 +66,14 @@
       enabled: true
     when: auth_method != "Basic"
 
+  # Hack to support SSL proxied apps with port 443
+  # /opt/ood/mod_ood_proxy/lib/ood/proxy.lua
+  - name: Copy the updated proxy.lua 
+    copy: 
+      src: files/proxy.lua
+      dest: /opt/ood/mod_ood_proxy/lib/ood/proxy.lua
+      mode: 0644
+    
   - name: Use Python3 wrapper for passenger apps
     lineinfile:
       state: present
