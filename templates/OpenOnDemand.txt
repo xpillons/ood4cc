@@ -18,6 +18,7 @@ Autoscale = false
     KeyPairLocation = ~/.ssh/cyclecloud.pem
     UsePublicNetwork = $UsePublicNetwork
     Azure.Identities = $ManagedIdentity
+    Tags = $NodeTags
 
         [[[configuration]]]
 
@@ -120,6 +121,13 @@ Order = 10
         Description = The machine type for the Open OnDemand Server host
         ParameterType = Cloud.MachineType
         DefaultValue = Standard_D4as_v4
+
+        [[[parameter NodeTags]]]
+        Label = VM Tags
+        Description = Tags applied to all nodes
+        ParameterType = Record
+        DefaultValue := {}
+        Config.MultiSelect = false
 
     [[parameters Networking]]
     Order = 40
