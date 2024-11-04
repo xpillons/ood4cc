@@ -89,6 +89,13 @@
       regexp: "^#passenger_python|^passenger_python"
       line: "passenger_python: '/mnt/cluster-init/ood/default/files/python_wrapper.sh'"
 
+  # Turn off the default bc_desktop
+  - name: Turn off the default bc_desktop
+    ansible.builtin.file:
+      path: /var/www/ood/apps/sys/bc_desktop
+      mode: '0600'
+      state: directory
+
   # Fix permissions for the Ansible directory, so the vars.yml file can be written
   - name: Fix permissions
     ansible.builtin.file:

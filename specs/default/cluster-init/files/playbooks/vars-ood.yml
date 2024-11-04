@@ -9,6 +9,9 @@ ood_install_apps:
   ccw_jupyter:
     repo: 'https://github.com/xpillons/ccw_jupyter.git'
     version: main
+  ood_thinlinc:
+    repo: 'https://github.com/xpillons/ood_thinlinc.git'
+    version: main
 
 ood_apps:
   dashboard:
