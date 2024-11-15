@@ -73,6 +73,7 @@ Autoscale = false
     MachineType = $MachineType
     IsReturnProxy = $ReturnProxy
     AdditionalClusterInitSpecs = $ClusterInitSpecs
+    ComputerName = "ood"
 
         [[[configuration]]]
         cyclecloud.discoverable = true
