@@ -32,7 +32,7 @@ ood_auth_openidc:
 #         redirectURI: 'https://{{ var_ood_fqdn }}/dex/callback'
 #         tenant: '{{ tenant_id }}'
 #oidc_remote_user_claim: "email"
-logout_redirect: "/oidc?logout=https%3A%2F%2F {{ var_ood_fqdn }}"
+logout_redirect: "/oidc?logout=https%3A%2F%2F {{ ood_fqdn }}"
 oidc_uri: /oidc
 
 user_map_match: '^([^@]+)@microsoft.com$'
