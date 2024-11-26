@@ -64,7 +64,7 @@
       name: ondemand-dex.service
       state: restarted
       enabled: true
-    when: auth_method != "Basic"
+    when: auth_method == "LDAP"
 
   # Create a script to run before the PUN is created, to set the user's environment
   # Defined in the pun_pre_hook_root_cmd variable set in the ood-overrides-common.yml file
