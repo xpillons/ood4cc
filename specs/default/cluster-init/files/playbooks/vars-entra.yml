@@ -9,15 +9,17 @@ httpd_auth:
 ood_auth_openidc:
   OIDCProviderMetadataURL: 'https://sts.windows.net/{{tenant_id}}/.well-known/openid-configuration'
   OIDCClientID: '{{ client_id }}'
-  OIDCClientSecret: '{{ client_secret }}'
+#  OIDCClientSecret: '{{ client_secret }}'
+  OIDCPublicKeyFiles: /etc/ssl/{{ ood_fqdn }}/{{ ood_fqdn }}.crt
+  OIDCPrivateKeyFiles: /etc/ssl/{{ ood_fqdn }}/{{ ood_fqdn }}.key
   OIDCRemoteUserClaim: 'unique_name'
   OIDCScope: 'openid profile email groups'
-  OIDCCryptoPassphrase: '{{ client_secret }}'
+  OIDCCryptoPassphrase: 'exec:/bin/bash -c \"head /dev/urandom | tr -dc A-Za-z0-9 | head -c 32\"'
   OIDCPassIDTokenAs: 'serialized'
   OIDCPassRefreshToken: 'On'
   OIDCPassClaimsAs: 'environment'
   OIDCStateMaxNumberOfCookies: [7, true]
-
+  OIDCProviderTokenEndpointAuth: private_key_jwt
 
 
 # dex_uri: /dex
