@@ -16,7 +16,7 @@ ood_auth_openidc:
   OIDCPassIDTokenAs: 'serialized'
   OIDCPassRefreshToken: 'On'
   OIDCPassClaimsAs: 'environment'
-  OIDCStateMaxNumberOfCookies: '[7, true]'
+  OIDCStateMaxNumberOfCookies: [7, true]
 
 
 
