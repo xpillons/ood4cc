@@ -14,7 +14,7 @@ ood_auth_openidc:
   OIDCPrivateKeyFiles: /etc/ssl/{{ ood_fqdn }}/{{ ood_fqdn }}.key
   OIDCRemoteUserClaim: 'unique_name'
   OIDCScope: 'openid profile email groups'
-  OIDCCryptoPassphrase: 'exec:/bin/bash -c \"head /dev/urandom | tr -dc A-Za-z0-9 | head -c 32\"'
+  OIDCCryptoPassphrase: "exec:/bin/bash -c \"head /dev/urandom | tr -dc A-Za-z0-9 | head -c 32\""
   OIDCPassIDTokenAs: 'serialized'
   OIDCPassRefreshToken: 'On'
   OIDCPassClaimsAs: 'environment'
