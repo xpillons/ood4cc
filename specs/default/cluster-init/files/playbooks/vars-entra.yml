@@ -29,4 +29,4 @@ ood_auth_openidc:
 logout_redirect: "/oidc?logout=https%3A%2F%2F{{ ood_fqdn }}"
 oidc_uri: /oidc
 
-user_map_match: '^([^@]+)@microsoft.com$'
+user_map_match: '^([^@]+)@{{ user_map_match }}$'

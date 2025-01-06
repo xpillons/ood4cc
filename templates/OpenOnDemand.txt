@@ -51,8 +51,9 @@ Autoscale = false
 
         # Entra config - add values here if using Entra
         ood.entra_client_id= $ood_entra_client_id  # Client ID for Entra
-        ood.entra_client_secret= $ood_entra_client_secret  # Client Secret for Entra
         ood.entra_tenant_id= $ood_entra_tenant_id  # Tenant ID for Entra
+        ood.entra_user_map_match = $ood_entra_user_map_match # User domain mapping
+
 
         [[[configuration cyclecloud.mounts.nfs_shared]]]
         type = nfs
@@ -200,9 +201,9 @@ Order = 20
         Config.ParameterType = String
         Conditions.Excluded := ood_auth_method != "Entra"
 
-        [[[parameter ood_entra_client_secret]]]
-        Label = Client Secret
-        Description = Client Secret
+        [[[parameter ood_entra_user_map_match]]]
+        Label = User Domain
+        Description = User domain mapping without '@'
         Config.ParameterType = String
         Conditions.Excluded := ood_auth_method != "Entra"
 
