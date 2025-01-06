@@ -1,17 +1,22 @@
 ---
-install_ondemand_dex: false
 httpd_auth:
 - AuthType openid-connect
 - Require valid-user
 # oidc_settings:
 #   OIDCSSLValidateServer: "Off" # Required due to self signed certs
 
+# Configuration for Entra ID with Federated Identity
+# 1 - Create and attach a User Managed Identity for the OOD VM
+# 2 - Create a new application in Entra ID
+# 3 - Configure the application with the following settings:
+#     - Redirect URI: https://{{ ood_fqdn }}/oidc
+#     - Check the ID tokens in Implicit grant and hybrid flows
+#     - In Certificate & Secrets, add a Federated Credentials using the OOD VM User Managed Identity, leave the defaut audience to api://AzureADTokenExchange
+
 ood_auth_openidc:
   OIDCProviderMetadataURL: 'https://sts.windows.net/{{tenant_id}}/.well-known/openid-configuration'
   OIDCClientID: '{{ client_id }}'
-#  OIDCClientSecret: '{{ client_secret }}'
-  OIDCPublicKeyFiles: /etc/ssl/{{ ood_fqdn }}/{{ ood_fqdn }}.crt
-  OIDCPrivateKeyFiles: /etc/ssl/{{ ood_fqdn }}/{{ ood_fqdn }}.key
+  OIDCResponseType: 'id_token'
   OIDCRemoteUserClaim: 'unique_name'
   OIDCScope: 'openid profile email groups'
   OIDCCryptoPassphrase: "exec:/bin/bash -c \"head /dev/urandom | tr -dc A-Za-z0-9 | head -c 32\""
@@ -19,22 +24,9 @@ ood_auth_openidc:
   OIDCPassRefreshToken: 'On'
   OIDCPassClaimsAs: 'environment'
   OIDCStateMaxNumberOfCookies: [7, true]
-  OIDCProviderTokenEndpointAuth: private_key_jwt
 
-
-# dex_uri: /dex
-# dex:
-#   connectors:
-#     - type: microsoft
-#       id: microsoft
-#       name: Microsoft
-#       config:
-#         clientID: '{{ client_id }}'
-#         clientSecret: '{{ client_secret }}'
-#         redirectURI: 'https://{{ var_ood_fqdn }}/dex/callback'
-#         tenant: '{{ tenant_id }}'
 #oidc_remote_user_claim: "email"
-logout_redirect: "/oidc?logout=https%3A%2F%2F {{ ood_fqdn }}"
+logout_redirect: "/oidc?logout=https%3A%2F%2F{{ ood_fqdn }}"
 oidc_uri: /oidc
 
 user_map_match: '^([^@]+)@microsoft.com$'
