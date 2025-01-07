@@ -14,11 +14,11 @@ httpd_auth:
 #     - In Certificate & Secrets, add a Federated Credentials using the OOD VM User Managed Identity, leave the defaut audience to api://AzureADTokenExchange
 
 ood_auth_openidc:
-  OIDCProviderMetadataURL: 'https://sts.windows.net/{{tenant_id}}/.well-known/openid-configuration'
+  OIDCProviderMetadataURL: 'https://login.microsoftonline.com/{{tenant_id}}/v2.0/.well-known/openid-configuration'
   OIDCClientID: '{{ client_id }}'
   OIDCResponseType: 'id_token'
-  OIDCRemoteUserClaim: 'unique_name'
-  OIDCScope: 'openid profile email groups'
+  OIDCRemoteUserClaim: 'upn'
+  OIDCScope: 'openid profile'
   OIDCCryptoPassphrase: "exec:/bin/bash -c \"head /dev/urandom | tr -dc A-Za-z0-9 | head -c 32\""
   OIDCPassIDTokenAs: 'serialized'
   OIDCPassRefreshToken: 'On'
