@@ -86,6 +86,7 @@ Autoscale = false
 
         [[[network-interface eth0]]]
         AssociatePublicIpAddress = $UsePublicNetwork
+        NetworkInterfaceId = $ood_nic
 
         [[[cluster-init ood:default:1.0.0]]]
 
@@ -139,6 +140,13 @@ Order = 10
         Description = Subnet Resource Path (ResourceGroup/VirtualNetwork/Subnet)
         ParameterType = Azure.Subnet
         Required = True
+
+        [[[parameter ood_nic]]]
+        Label = NIC
+        Description = NIC ID to attach to
+        ParameterType = String
+        Required = True
+
 
 [parameters Advanced Settings]
 Order = 20
