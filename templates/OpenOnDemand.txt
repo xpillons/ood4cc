@@ -5,7 +5,7 @@
 [cluster OpenOnDemand]
 FormLayout = selectionpanel
 Category = Applications
-IconUrl = "https://global.discourse-cdn.com/flex015/uploads/osc/original/2X/7/78efe89a41a9cc51322e7b38c4d1efc24a44e6ee.png"
+IconUrl = "https://raw.githubusercontent.com/OSC/ondemand/refs/heads/master/apps/dashboard/app/assets/images/OpenOnDemand_stack_RGB.svg"
 
 Autoscale = false
 
@@ -142,8 +142,8 @@ Order = 10
         Required = True
 
         [[[parameter ood_nic]]]
-        Label = NIC
-        Description = NIC ID to attach to
+        Label = Network Interface ID
+        Description = Network Interface Card resource ID to attach to
         ParameterType = String
         Required = True
 
