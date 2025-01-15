@@ -1,7 +1,7 @@
 #!/bin/bash
 ANSIBLE_TAGS=$@
 set -e
-OOD_ANSIBLE_VERSION="v3.1.5"
+OOD_ANSIBLE_VERSION="v4.0.0"
 THIS_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 PLAYBOOKS_DIR=$THIS_DIR/playbooks
 

@@ -1,4 +1,4 @@
-ondemand_version: 3.1.9
+ondemand_version: 4.0.0
 auth_method: Basic # [Basic, LDAP, Entra]
 ood_fqdn:
 
