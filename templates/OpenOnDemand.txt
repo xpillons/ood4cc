@@ -86,6 +86,7 @@ Autoscale = false
 
         [[[network-interface eth0]]]
         AssociatePublicIpAddress = $UsePublicNetwork
+        #NetworkInterfaceId = ${ifThenElse(Size(Trim(ood_nic)), ood_nic, undefined)}
         NetworkInterfaceId = $ood_nic
 
         [[[cluster-init ood:default:1.0.0]]]
@@ -99,7 +100,7 @@ Order = 1
         [[[parameter Filer]]]
         HideLabel = true
         Config.Plugin = pico.widget.HtmlTemplateWidget
-        Config.Template = '''<table role="presentation"><tr><td><img alt="OOD logo" src="https://global.discourse-cdn.com/flex015/uploads/osc/original/2X/7/78efe89a41a9cc51322e7b38c4d1efc24a44e6ee.png" width="164" height="43"></td></tr><tr><td><p>Creates an <a href="https://openondemand.org/" target="_blank">Open OnDemand</a> portal that can be connected to CycleCloud Clusters</p><p>Follow the instructions in the <a href="https://github.com/xpillons/ood4cc/" target="_blank">README</a> for details on instructions on extending and configuring the Project for your environment.</p></td></tr></table>'''
+        Config.Template = '''<table role="presentation"><tr><td><img alt="OOD logo" src="https://raw.githubusercontent.com/OSC/ondemand/refs/heads/master/apps/dashboard/app/assets/images/OpenOnDemand_stack_RGB.svg" width="164" height="43"></td></tr><tr><td><p>Creates an <a href="https://openondemand.org/" target="_blank">Open OnDemand</a> portal that can be connected to CycleCloud Clusters</p><p>Follow the instructions in the <a href="https://github.com/xpillons/ood4cc/" target="_blank">README</a> for details on instructions on extending and configuring the Project for your environment.</p></td></tr></table>'''
 
         [[[parameter Readme]]]
         HideLabel = true
@@ -145,7 +146,6 @@ Order = 10
         Label = Network Interface ID
         Description = Network Interface Card resource ID to attach to
         ParameterType = String
-        Required = True
 
 
 [parameters Advanced Settings]

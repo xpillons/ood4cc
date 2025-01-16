@@ -14,7 +14,7 @@ group_base_DN:
 
 # Entra config
 client_id: 
-client_secret: 
+entra_map_match: 
 tenant_id: 
 
 # OOD connection app settings
