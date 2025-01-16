@@ -5,7 +5,7 @@
 [cluster OpenOnDemand]
 FormLayout = selectionpanel
 Category = Applications
-IconUrl = "https://global.discourse-cdn.com/flex015/uploads/osc/original/2X/7/78efe89a41a9cc51322e7b38c4d1efc24a44e6ee.png"
+IconUrl = "https://raw.githubusercontent.com/OSC/ondemand/refs/heads/master/apps/dashboard/app/assets/images/OpenOnDemand_stack_RGB.svg"
 
 Autoscale = false
 
@@ -86,6 +86,7 @@ Autoscale = false
 
         [[[network-interface eth0]]]
         AssociatePublicIpAddress = $UsePublicNetwork
+        NetworkInterfaceId = $ood_nic
 
         [[[cluster-init ood:default:1.0.0]]]
 
@@ -139,6 +140,13 @@ Order = 10
         Description = Subnet Resource Path (ResourceGroup/VirtualNetwork/Subnet)
         ParameterType = Azure.Subnet
         Required = True
+
+        [[[parameter ood_nic]]]
+        Label = Network Interface ID
+        Description = Network Interface Card resource ID to attach to
+        ParameterType = String
+        Required = True
+
 
 [parameters Advanced Settings]
 Order = 20
