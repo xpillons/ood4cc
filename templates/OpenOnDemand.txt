@@ -86,7 +86,6 @@ Autoscale = false
 
         [[[network-interface eth0]]]
         AssociatePublicIpAddress = $UsePublicNetwork
-        #NetworkInterfaceId = ${ifThenElse(Size(Trim(ood_nic)), ood_nic, undefined)}
         NetworkInterfaceId = $ood_nic
 
         [[[cluster-init ood:default:1.0.0]]]

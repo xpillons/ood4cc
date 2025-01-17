@@ -6,6 +6,9 @@ ood_install_apps:
   ccw_codeserver:
     repo: 'https://github.com/xpillons/ccw_codeserver.git'
     version: main
+  login_codeserver:
+    repo: 'https://github.com/xpillons/login_codeserver.git'
+    version: main
   ccw_jupyter:
     repo: 'https://github.com/xpillons/ccw_jupyter.git'
     version: main
@@ -80,6 +83,8 @@ pun_custom_env:
   OOD_SHELL_PING_PONG: true
 
 # See https://osc.github.io/ood-documentation/latest/customization.html#pinning-applications-to-the-dashboard
+pinned_apps_group_by: category
 pinned_apps:
   - sys/shell
+  - category: 'Login Nodes'
   - category: 'Interactive Apps'
