@@ -129,6 +129,12 @@
       mode: '0600'
       state: directory
 
+  # Create an announcement to connect a cluster
+  - name: Copy the announcement file 
+    copy: 
+      src: files/announcement.yml
+      dest: /etc/ood/config/announcement.yml
+
   # - name: Generate new ood_portal.conf file
   #   shell: |
   #     /opt/ood/ood-portal-generator/sbin/update_ood_portal -f
