@@ -241,7 +241,7 @@ Order = 20
         Config.MaxValue = 32,000
         Config.IntegerOnly = true
         Config.Increment = 64
-        DefaultValue = 32
+        DefaultValue = 0
 
 
     [[parameters Software]]

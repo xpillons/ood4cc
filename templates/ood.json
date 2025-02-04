@@ -20,7 +20,7 @@
     "NFSAddress": "ANF-IP",
     "ood_ldap_bind_pwd": null,
     "Filer": null,
-    "BootDiskSize": 32,
+    "BootDiskSize": 0,
     "ood_entra_user_map_match": "foo.com",
     "ClusterInitSpecs": null,
     "ood_nic": "/subscriptions/<id>/resourceGroups/<rg>/providers/Microsoft.Network/networkInterfaces/<nic>",
