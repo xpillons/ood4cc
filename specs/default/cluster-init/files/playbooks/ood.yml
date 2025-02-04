@@ -67,7 +67,7 @@
       enabled: true
     when: auth_method in ['LDAP']
 
-  # Create a script to run before the PUN is created, to set the user's environment
+  # Create a script to run before the PUN is created, to set the user's environment if not exists
   # Defined in the pun_pre_hook_root_cmd variable set in the ood-overrides-common.yml file
   - name: Copy the pun_pre_hook script
     copy: 
@@ -75,7 +75,7 @@
       dest: /etc/ood/config/pun_pre_hook.sh
       mode: 0755
 
-  # Hack to support SSL proxied apps with port 443
+  # Hack to support SSL proxied apps with port 443 => only needed for Thinlinc at the moment
   # /opt/ood/mod_ood_proxy/lib/ood/proxy.lua
   - name: Copy the updated proxy.lua 
     copy: 
@@ -83,19 +83,17 @@
       dest: /opt/ood/mod_ood_proxy/lib/ood/proxy.lua
       mode: 0644
     
+  ## =============================================================================================
+  #
+  #               Add the CycleCloud Connect Cluster application
+  #
+  ## Begin =======================================================================================
   - name: Use Python3 wrapper for passenger apps
     lineinfile:
       state: present
       dest: /etc/ood/config/nginx_stage.yml
       regexp: "^#passenger_python|^passenger_python"
       line: "passenger_python: '/mnt/cluster-init/ood/default/files/python_wrapper.sh'"
-
-  # Turn off the default bc_desktop
-  - name: Turn off the default bc_desktop
-    ansible.builtin.file:
-      path: /var/www/ood/apps/sys/bc_desktop
-      mode: '0600'
-      state: directory
 
   # Fix permissions for the Ansible directory, so the vars.yml file can be written
   - name: Fix permissions
@@ -121,6 +119,15 @@
   - name: update nginx stage
     shell: |
       /opt/ood/nginx_stage/sbin/update_nginx_stage &>/dev/null || :
+
+  ## End =========================================================================================
+
+  # Turn off the default bc_desktop
+  - name: Turn off the default bc_desktop
+    ansible.builtin.file:
+      path: /var/www/ood/apps/sys/bc_desktop
+      mode: '0600'
+      state: directory
 
   # - name: Generate new ood_portal.conf file
   #   shell: |
