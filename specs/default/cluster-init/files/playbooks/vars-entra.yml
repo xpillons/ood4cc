@@ -11,7 +11,11 @@ httpd_auth:
 # 3 - Configure the application with the following settings:
 #     - Redirect URI: https://{{ ood_fqdn }}/oidc
 #     - Check the ID tokens in Implicit grant and hybrid flows
-#     - In Certificate & Secrets, add a Federated Credentials using the OOD VM User Managed Identity, leave the defaut audience to api://AzureADTokenExchange
+#     - In Token Configuration add an optional claim
+#         - Token Type: ID
+#         - Check 'upn' in the claim list
+#     - Check 'Turn on the Microsoft Graph profile permission (required for claims to appear in token).'
+#     - In Certificate & Secrets, add a Federated Credentials using the OOD VM User Managed Identity, leave the default audience to api://AzureADTokenExchange
 
 ood_auth_openidc:
   OIDCProviderMetadataURL: 'https://login.microsoftonline.com/{{tenant_id}}/v2.0/.well-known/openid-configuration'

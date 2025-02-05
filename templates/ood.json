@@ -21,10 +21,10 @@
     "NFSAddress": "ANF-IP",
     "ood_ldap_bind_pwd": null,
     "Filer": null,
-    "BootDiskSize": 32,
+    "BootDiskSize": 0,
     "ood_entra_user_map_match": "foo.com",
     "ClusterInitSpecs": null,
     "ood_nic": "/subscriptions/<id>/resourceGroups/<rg>/providers/Microsoft.Network/networkInterfaces/<nic>",
-    "ImageName": "canonical:0001-com-ubuntu-server-jammy:22_04-lts-gen2:latest",
+    "ImageName": "cycle.image.ubuntu22",
     "ood_ldap_user_base_dn": null
   }

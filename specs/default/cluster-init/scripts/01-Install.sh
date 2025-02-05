@@ -1,5 +1,5 @@
 #!/bin/bash
-# This script installs Open OnDemand (OOD) on AlmaLinux 8.7 and Ubuntu 22.04.
+# This script installs Open OnDemand (OOD) on AlmaLinux 8.x and Ubuntu 22.04.
 # It supports different authentication methods (Basic, LDAP, Entra) and configures the necessary settings for each.
 # The script performs the following steps:
 # 1. Replaces values in the vars.yml file with user-configured values from the CC template.

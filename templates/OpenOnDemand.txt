@@ -241,22 +241,20 @@ Order = 20
         Config.MaxValue = 32,000
         Config.IntegerOnly = true
         Config.Increment = 64
-        DefaultValue = 32
+        DefaultValue = 0
 
 
     [[parameters Software]]
-    Description = "Specify the base OS installed - Alma Linux 8 = almalinux:almalinux-x86_64:8-gen2:latest Ubnutu22.04lts = canonical:0001-com-ubuntu-server-jammy:22_04-lts-gen2:latest "
+    Description = "Specify the base OS installed for the Open OnDemand VM"
 
     Order = 20
-        
+
         [[[parameter ImageName]]]
-        Label = Image
-        Description = Base OS for Open OnDemand
-        ParameterType = StringList
-        Config.Plugin = pico.form.Dropdown
-        Config.FreeForm = true
-        DefaultValue = "canonical:0001-com-ubuntu-server-jammy:22_04-lts-gen2:latest"
-        Config.Entries := {[Label="AlmaLinux 8"; Value="almalinux:almalinux-x86_64:8-gen2:latest"], [Label="Ubuntu 22.04 LTS"; Value="canonical:0001-com-ubuntu-server-jammy:22_04-lts-gen2:latest"]}
+        Label = Base OS for Open OnDemand
+        ParameterType = Cloud.Image
+        Config.OS = linux
+        DefaultValue = cycle.image.ubuntu22
+        Config.Filter := Package in {"cycle.image.ubuntu22", "almalinux8"}
 
         [[[parameter ClusterInitSpecs]]]
         Label = Cluster-Init Projects
