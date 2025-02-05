@@ -14,6 +14,7 @@
     "ood_ldap_host": null,
     "NFSSharedMountOptions": null,
     "MachineType": "Standard_D4as_v4",
+    "ReturnProxy": false,
     "Credentials": "azure",
     "NodeTags": {},
     "NFSSharedExportPath": "/home-path",

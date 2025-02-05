@@ -72,7 +72,7 @@ Autoscale = false
     [[node OOD]]
 
     MachineType = $MachineType
-    IsReturnProxy = false
+    IsReturnProxy = $ReturnProxy
     AdditionalClusterInitSpecs = $ClusterInitSpecs
     ComputerName = "ood"
 
@@ -264,6 +264,12 @@ Order = 20
 
     [[parameters Advanced Networking]]
     Description = Advanced networking settings
+
+        [[[parameter ReturnProxy]]]
+        Label = Return Proxy
+        DefaultValue = false
+        ParameterType = Boolean
+        Config.Label = Use SSH tunnel to connect to CycleCloud (required if direct access is blocked)
 
         [[[parameter UsePublicNetwork]]]
         Label = Public IP
